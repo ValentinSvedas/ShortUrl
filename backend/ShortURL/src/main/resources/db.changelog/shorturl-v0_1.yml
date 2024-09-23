@@ -1,0 +1,35 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-table-url
+      comment: Create table url
+      author: vsvedas
+      changes:
+        - createTable:
+            tableName: url
+            columns:
+              - column:
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: PK_url
+                  name: id
+                  type: varchar
+              - column:
+                  constraints:
+                    nullable: false
+                  name: shorted_url
+                  type: varchar
+              - column:
+                  constraints:
+                    nullable: false
+                  name: original_url
+                  type: varchar
+              - column:
+                  constraints:
+                    nullable: false
+                  name: update_at
+                  type: datetime
+              - column:
+                  constraints:
+                    nullable: false
+                  name: expires_at
+                  type: datetime

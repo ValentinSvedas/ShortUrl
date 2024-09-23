@@ -1,0 +1,5 @@
+databaseChangeLog:
+
+  - include:
+      file: shorturl-v0_1.yml
+      relativeToChangelogFile: true
