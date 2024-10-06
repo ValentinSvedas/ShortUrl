@@ -1,0 +1,86 @@
+---
+import Layout from "../layouts/Layout.astro";
+import formatDate from "../components/utils/formatDate.js"
+
+export const prerender = false;
+
+const { id } = Astro.params
+
+let urlData;
+
+if (id) {
+	const response = await fetch(`http://localhost:8080/url/${id}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      });
+    
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+    
+	  try {
+			urlData = await response.json();
+		} catch (parseError) {
+			console.error('Error parsing JSON:', parseError);
+			throw new Error('Invalid JSON in response');
+		}
+}
+
+---
+
+<Layout title=`URL AGREGAR DOMINIO${id}`>
+	<main>
+		<article class="text-black bg-gray-100 w-11/12 rounded-xl border-b-2 border-black border-solid md:w-8/12 grid grid-cols-2 grid-rows-1 gap-5 p-5">
+			<h1 class="m-auto  text-4xl mt-5 mx-3 font-medium col-span-2">
+				Details of your shortened URL <span class="font-semibold text-yellow-600">AGREGAR DOMINIO {id}</span>
+			</h1>
+			<section>
+				<h3 class="font-medium ml-5"> This URL redirect to: </h3>
+				<a href={urlData?.originalUrl}
+				rel="noopener noreferrer"
+				target="_blank"
+				class="text-blue-700 underline block text-center">
+				{urlData?.originalUrl}
+			  </a>
+			</section>
+			<section>
+				<h3 class="font-medium ml-5"> Time to expire: </h3>
+					<p>{formatDate(urlData?.expiresAt)}</p>
+			</section>
+			<section>
+				<h3 class="font-medium ml-5"> Amount of clicks: </h3>
+					<p>{urlData?.clicks}</p>
+			</section>
+		</article>
+	</main>
+</Layout>
+
+<style>
+	main {
+		margin: auto;
+		padding: 1rem;
+		width: 800px;
+		max-width: calc(100% - 2rem);
+		color: rgb(255, 255, 255);
+		font-size: 20px;
+		line-height: 1.6;
+		width: 100dvw;
+		height: 80dvh;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+	h1{
+		font-family: sans-serif;
+		text-align: center;
+	}
+	p{
+		text-align: center;
+	}
+	section{
+		border-left: 2px rgb(0, 0, 0) solid;
+		
+	}
+</style>

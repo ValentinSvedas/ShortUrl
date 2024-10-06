@@ -7,6 +7,7 @@ import tailwind from '@astrojs/tailwind';
 export default defineConfig({
   integrations: [react({
     include:['**/react/*']
-  }), tailwind()]
+  }), tailwind()],
+  output: 'hybrid'
   
 });

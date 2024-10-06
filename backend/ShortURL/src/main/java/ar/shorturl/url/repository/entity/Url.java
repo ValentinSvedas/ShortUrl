@@ -35,4 +35,7 @@ public class Url {
     @Column(nullable = false, name = "expires_at")
     private LocalDateTime expiresAt;
 
+    @Column(nullable = false, name = "clicks")
+    private Integer clicks;
+
 }

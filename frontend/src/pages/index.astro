@@ -1,21 +1,43 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import ShortInput from "../components/ShortInput.astro";
+import SearchUrlStats from "../components/SearchUrlStats.astro";
 ---
 
 <Layout title="Short url">
-	<main>
-		<article class="bg-gray-50 w-7/12 rounded-xl border-b-2 border-black border-solid">
-			<h1 class="m-auto text-black text-6xl mt-5">
+	<main class="flex-col gap-10">
+		<article class="bg-gray-50 w-11/12 rounded-xl border-b-2 border-black border-solid md:w-8/12">
+			<h1 class="m-auto text-black text-6xl mt-5 mx-3">
 				Welcome to
 				<span
-					class=" bg-gradient-to-r from-slate-800 to-amber-300 bg-clip-text text-transparent"
+					class=" bg-gradient-to-r from-slate-800 to-amber-600 bg-clip-text text-transparent"
 				>
 					Short url
 				</span>
 			</h1>
+			<p class="text-slate-900 text-center mt-4 mx-5">
+				Transform your lengthy web addresses into compact, <span class="font-semibold text-yellow-600">easy-to-share links!</span>
+				Simply paste your long URL below, <span class="font-semibold text-yellow-600"> click Generate URL</span>, and get a short,
+				memorable link instantly. Perfect for social media, emails, or anywhere
+				you need to save space. Try it now and simplify your online sharing
+			</p>
 			<ShortInput />
 		</article>
+		<aside class="bg-gray-50 w-11/12 rounded-xl border-b-2 border-black border-solid md:w-8/12">
+			<h3 class="m-auto text-black text-4xl mt-5 mx-3">
+				Find statistics for your 
+				<span
+					class=" bg-gradient-to-r from-slate-800 to-amber-600 bg-clip-text text-transparent"
+				>
+					shortened URL
+				</span>
+			</h3>
+			<p class="text-slate-900 text-center mt-4 mx-5">
+				<p class="text-slate-900 text-center mt-4 mx-5">
+					Gain detailed insights about your links by simply pasting your <span class="font-semibold text-yellow-600">shortened URL</span> below.
+			   </p>
+			<SearchUrlStats/>
+		</aside>
 	</main>
 </Layout>
 
@@ -34,7 +56,7 @@ import ShortInput from "../components/ShortInput.astro";
 		justify-content: center;
 		align-items: center;
 	}
-	h1 {
+	h1, h3{
 		font-family: "Nuku", sans-serif;
 		text-align: center;
 	}

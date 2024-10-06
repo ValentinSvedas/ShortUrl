@@ -45,7 +45,7 @@ public class UrlServiceImpl implements UrlService {
         LocalDateTime calculateDaysToExpires = LocalDateTime.now().plusDays(daysToExpires);
 
         Url url = new Url(randomId, urlBo.getOriginalUrl(), shortedUrl,
-                LocalDateTime.now(), calculateDaysToExpires);
+                LocalDateTime.now(), calculateDaysToExpires,0);
         return urlRepository.save(url).getShortedUrl();
     }
 
@@ -62,10 +62,16 @@ public class UrlServiceImpl implements UrlService {
     }
 
     @Override
-    public String findUrlByKey(String urlKey) {
-       Url url = urlRepository.findById(urlKey)
-               .orElseThrow(() -> new NotFoundException("url-not-found", "No se encontró la url original con ID: {}.", urlKey));
-        return urlRepository.save(url).getOriginalUrl();
+    public Url findUrlByKey(String urlKey, Boolean plusClick) {
+        Url url = urlRepository.findById(urlKey)
+                .orElseThrow(() -> new NotFoundException("url-not-found", "No se encontró la url original con ID: {}.", urlKey));
+
+        if (plusClick){
+        url.setClicks(url.getClicks()+1);
+        urlRepository.save(url);
+        }
+
+        return url;
     }
 
 

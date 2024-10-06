@@ -33,3 +33,16 @@ databaseChangeLog:
                     nullable: false
                   name: expires_at
                   type: datetime
+
+  - changeSet:
+      id: add-column-clicks-table-url
+      comment: Agrega nueva columna a tabla url
+      author: vsvedas
+      changes:
+        - addColumn:
+            tableName: url
+            columns:
+              - column:
+                  name: clicks
+                  type: int
+                  defaultValue: 0
