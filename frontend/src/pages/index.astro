@@ -5,9 +5,9 @@ import SearchUrlStats from "../components/SearchUrlStats.astro";
 ---
 
 <Layout title="Short url">
-	<main class="flex-col gap-10">
-		<article class="bg-gray-50 w-11/12 rounded-xl border-b-2 border-black border-solid md:w-8/12">
-			<h1 class="m-auto text-black text-6xl mt-5 mx-3">
+	<main class="flex-col gap-3 md:gap-7 md:bg-opacity-15 md:bg-black rounded-lg">
+		<article class="bg-gray-50 w-11/12 rounded-xl border-b-2 border-black border-solid xl:w-8/12">
+			<h1 class="m-auto text-black text-2xl mt-5 mx-3 md:text-5xl">
 				Welcome to
 				<span
 					class=" bg-gradient-to-r from-slate-800 to-amber-600 bg-clip-text text-transparent"
@@ -15,7 +15,7 @@ import SearchUrlStats from "../components/SearchUrlStats.astro";
 					Short url
 				</span>
 			</h1>
-			<p class="text-slate-900 text-center mt-4 mx-5">
+			<p class="text-slate-900 text-center mt-1 md:mt-4 mx-5 text-sm xl:text-xl">
 				Transform your lengthy web addresses into compact, <span class="font-semibold text-yellow-600">easy-to-share links!</span>
 				Simply paste your long URL below, <span class="font-semibold text-yellow-600"> click Generate URL</span>, and get a short,
 				memorable link instantly. Perfect for social media, emails, or anywhere
@@ -23,8 +23,8 @@ import SearchUrlStats from "../components/SearchUrlStats.astro";
 			</p>
 			<ShortInput />
 		</article>
-		<aside class="bg-gray-50 w-11/12 rounded-xl border-b-2 border-black border-solid md:w-8/12">
-			<h3 class="m-auto text-black text-4xl mt-5 mx-3">
+		<aside class="bg-gray-50 w-11/12 rounded-xl border-b-2 border-black border-solid xl:w-8/12">
+			<h3  class="m-auto text-black max-md:text-xl text-3xl mt-5 mx-3 ">
 				Find statistics for your 
 				<span
 					class=" bg-gradient-to-r from-slate-800 to-amber-600 bg-clip-text text-transparent"
@@ -32,8 +32,7 @@ import SearchUrlStats from "../components/SearchUrlStats.astro";
 					shortened URL
 				</span>
 			</h3>
-			<p class="text-slate-900 text-center mt-4 mx-5">
-				<p class="text-slate-900 text-center mt-4 mx-5">
+				<p class="text-slate-900 text-center mt-1 md:mt-4 mx-5 text-sm xl:text-xl">
 					Gain detailed insights about your links by simply pasting your <span class="font-semibold text-yellow-600">shortened URL</span> below.
 			   </p>
 			<SearchUrlStats/>

@@ -6,10 +6,11 @@ export const prerender = false;
 
 const { id } = Astro.params
 
-let urlData;
+let urlData = undefined;
+let baseUrl = import.meta.env.PUBLIC_BE_BASE_URL;
 
 if (id) {
-	const response = await fetch(`http://localhost:8080/url/${id}`, {
+	const response = await fetch(`${baseUrl}/url/${id}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -17,24 +18,24 @@ if (id) {
       });
     
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        throw new Error(`HTTP error! status: ${response.status} ${ id}`);
       }
     
 	  try {
 			urlData = await response.json();
 		} catch (parseError) {
-			console.error('Error parsing JSON:', parseError);
-			throw new Error('Invalid JSON in response');
+			console.error('Error parsing JSON:', parseError );
 		}
 }
+
 
 ---
 
 <Layout title=`URL AGREGAR DOMINIO${id}`>
 	<main>
-		<article class="text-black bg-gray-100 w-11/12 rounded-xl border-b-2 border-black border-solid md:w-8/12 grid grid-cols-2 grid-rows-1 gap-5 p-5">
-			<h1 class="m-auto  text-4xl mt-5 mx-3 font-medium col-span-2">
-				Details of your shortened URL <span class="font-semibold text-yellow-600">AGREGAR DOMINIO {id}</span>
+		<article class="flex flex-col gap-3 text-black bg-gray-100 w-11/12 rounded-xl border-b-2 border-black border-solid md:w-8/12 md:grid md:grid-cols-2 md:grid-rows-1 p-5 max-h-dvh">
+			<h1 class="m-auto text-2xl mt-5 mx-3 md:text-4xl font-medium col-span-2">
+				Details of your shortened URL <span class="font-semibold text-yellow-600">{baseUrl}/{id}</span>
 			</h1>
 			<section>
 				<h3 class="font-medium ml-5"> This URL redirect to: </h3>

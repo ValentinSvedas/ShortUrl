@@ -1,22 +1,31 @@
 import React, { useState } from 'react';
 
-export default function ShortButton() {
+const urlRegex = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,})(:(\d{1,5}))?(\/.*)?$/i;
+
+export default function ShortButton(props) {
   const [url, setUrl] = useState('');
+  const [urlResponse, setUrlResponse] = useState('');
   const [result, setResult] = useState('');
   const [disabled, setDisabled] = useState(true);
 
   function handleButtonDisabled(e) {
     setResult(<></>);
+    setUrlResponse()
     setDisabled(true);
-    if (/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/.test(e.target.value))
+    if (urlRegex.test(e.target.value))
       setDisabled(false);
   }
 
+  const handleCopy = (e) => {
+    navigator.clipboard.writeText(urlResponse)
+      .then(() => alert('URL copied to clipboard!'))
+      .catch(err => console.error('Failed to copy: ', err));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
-      const response = await fetch('http://localhost:8080', {
+      const response = await fetch(props.baseUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -29,18 +38,20 @@ export default function ShortButton() {
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
+      const textResponse = await response.text();
+      setUrlResponse( textResponse);
+      
     
-      const urlResponse = await response.text();
-    
+      {console.log(urlResponse);}
       setResult(
         <>
-        <h2 className="text-xl font-bold">Generated URL:</h2>
-        <a href={urlResponse}
-          rel="noopener noreferrer"
-          target="_blank"
-          className="mt-2 text-blue-700 underline">
-          {urlResponse}
-        </a>
+          <h2 className="text-xl font-bold">Generated URL:</h2>
+          <a href={textResponse}
+            rel="noopener noreferrer"
+            target="_blank"
+            className="mt-2 text-blue-700 underline">
+            {textResponse}
+          </a>
         </>
     );
     
@@ -54,10 +65,10 @@ export default function ShortButton() {
   };
 
   return (
-    <div className="w-full flex gap-3 flex-col">
-      <form onSubmit={handleSubmit} className="flex flex-col gap-2 md:flex-row">
+    <div className="w-full flex-col">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-1 md:gap-2 md:flex-row">
         <input
-          className="bg-gray-200 rounded-md px-2 py-1 text-black border-2 border-slate-500"
+          className="bg-gray-200 rounded-md px-2 py-1 text-black border-2 border-slate-500 h-6 text-sm w-56 md:h-10 md:text-lg"
           type="text"
           value={url}
           onChange={(e) => setUrl(e.target.value)}
@@ -66,14 +77,20 @@ export default function ShortButton() {
         />
         <input
           type="submit"
-          value="Shorten URL"
-          className="rounded-md bg-black text-white px-2 py-1 cursor-pointer hover:bg-slate-700"
+          value="Short ✂️"
+          className="rounded-md border-2 border-black text-black px-2 py-1 cursor-pointer hover:text-white hover:bg-black transition h-8 text-sm md:w-24 md:h-10 md:text-lg"
           disabled={disabled}
         />
       </form>
-      {result && (
+      {result&& (
         <div className="mt-4 text-black text-center">
           {result}
+          {urlResponse && <button
+              onClick={() => handleCopy(result)}
+              className="p-1 ml-3 rounded-md border-2 border-black hover:text-slate-500 hover:border-slate-500"
+            >
+              Copiar
+            </button>}
         </div>
       )}
     </div>

@@ -1,14 +1,11 @@
 ---
 import SearchButton from './react/SearchButton.jsx';
-interface Props {
-}
 
-const { } = Astro.props;
-
+const baseFEUrl = import.meta.env.PUBLIC_FE_BASE_URL;
 ---
 
-<div class="flex gap-3 my-10 mx-auto w-fit">
-	<SearchButton  client:load/>
+<div class="flex gap-3 my-2 md:my-10 mx-auto w-fit">
+	<SearchButton  client:load baseUrl={baseFEUrl}/>
 </div>
 <style>
 	p {

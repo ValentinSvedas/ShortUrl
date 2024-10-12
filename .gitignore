@@ -67,8 +67,6 @@ sonarlint.json
 .liquibase-outputChangeLog.yaml
 
 
-
 artifacts
 artifacts/*
-
-back-end/ShortURL/target/*
+/.idea
