@@ -12,7 +12,10 @@
   "dependencies": {
     "@astrojs/react": "^3.6.2",
     "@astrojs/tailwind": "^5.1.1",
-    "astro": "^4.15.8"
+    "@astrojs/vercel": "^8.0.1",
+    "astro": "^5.0.5",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
   },
   "devDependencies": {
     "eslint": "^9.11.0",
